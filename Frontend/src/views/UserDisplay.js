@@ -10,7 +10,6 @@ export class UserDisplay extends Component {
     
 
     componentDidMount(){
-        console.log('hello')
         fetch(`${API_URL}/users/${this.props.match.params.id}`,{
             headers:{
                 Authorization: `BEARER ${this.props.token}`
