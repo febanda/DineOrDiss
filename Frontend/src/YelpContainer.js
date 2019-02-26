@@ -6,12 +6,16 @@ import RestaurantList from "./RestaurantList"
 
 
 
+
 const config = {
     method: 'GET',
     headers: {'Authorization': `Bearer ${API_KEY}`},
     params: {
         term: 'burgers',
-        location: '708 main st'
+        latitude: 29.760799,
+        longitude: -95.369507,
+        sort_by: 'distance',
+        limit: 50
     }
 }
 
@@ -24,6 +28,7 @@ export class YelpContainer extends Component {
             isLoading: false
         }
     }
+
 
 
   componentWillMount(){
