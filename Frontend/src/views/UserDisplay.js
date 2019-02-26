@@ -20,9 +20,11 @@ export class UserDisplay extends Component {
     }
 
     render() {
+       console.log(this.props)
         // const { name } = this.state.user
         return (
             <div>
+                <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
                 <YelpContainer/>
             </div>
         );

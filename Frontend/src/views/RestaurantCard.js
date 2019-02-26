@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
-import { Card, Icon, Image } from 'semantic-ui-react'
+import { Card, Image } from 'semantic-ui-react'
+import {Link} from 'react-router-dom' 
 
 export class RestaurantCard extends Component {
+
+    
     render() {
         const restaurant = this.props.selectedRestaurant
         return (
             <Card>
             <div>
                 <div className="image">
-                <img src={restaurant.image_url} width="200"></img>
+                <Image src={restaurant.image_url} width="200"></Image>
                 </div>
                 <div className="name">Name: {restaurant.name}</div>
                 <div className="price">Price: {restaurant.price}</div>
                 <div className="rating">Rating: {restaurant.rating}</div>
+                <Link to={{ pathname: '/restaurantpage', state: { name: restaurant.name, image: restaurant.image_url, phone: restaurant.display_phone, address: restaurant.location.display_address.toString()}}}>Main</Link>
     
             
             </div>

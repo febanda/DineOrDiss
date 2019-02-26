@@ -19,7 +19,7 @@ export class Login extends Component {
     }
 
     logIn = () => {
-        console.log("h")
+        
         fetch(`${API_URL}/auth`,{
             method: 'POST',
             headers: {
