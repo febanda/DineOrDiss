@@ -22,14 +22,9 @@ ActiveRecord::Schema.define(version: 2019_02_22_162056) do
   end
 
   create_table "restaurants", force: :cascade do |t|
-    t.string "name"
-    t.string "image_url"
-    t.integer "price"
-    t.integer "rating"
+    t.string "business_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "categories", default: "{}"
-    t.integer "user_id"
   end
 
   create_table "users", force: :cascade do |t|

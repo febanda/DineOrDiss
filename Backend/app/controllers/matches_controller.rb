@@ -1,6 +1,6 @@
 class MatchesController < ApplicationController
     before_action :define_current_match
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
         
         def create
             match = Match.create(match_params)

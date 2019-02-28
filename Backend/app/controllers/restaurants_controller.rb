@@ -1,6 +1,6 @@
 class RestaurantsController < ApplicationController
     before_action :define_current_restaurant
-    skip_before_action :verify_authenticity_token
+    # skip_before_action :verify_authenticity_token
         
         def create
             restaurant = Restaurant.create(restaurant_params)
@@ -26,7 +26,7 @@ class RestaurantsController < ApplicationController
         end
         
         def restaurant_params
-            params.permit(:name, :password_digest, :email)
+            params.permit(:business_id)
         end
         
         def define_current_restaurant

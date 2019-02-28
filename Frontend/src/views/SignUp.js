@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {API_URL} from '../constants';
 import {server} from '../server'
+import {Link} from 'react-router-dom'
 
 export class SignUp extends Component {
 
@@ -44,6 +45,7 @@ export class SignUp extends Component {
                 <input onChange={this.handleChange} value={password} name="password" type="password" />
             </div>
             <button onClick={this.createUser}>Create User</button>
+            <Link to="login">Login</Link>
         </div>
         );
     }

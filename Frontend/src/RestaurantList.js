@@ -6,7 +6,7 @@ class RestaurantList extends Component {
         return (
             <div>
                 {this.props.restaurants.map(restaurant => {
-                    return <RestaurantCard key={restaurant.id} selectedRestaurant={restaurant} moreInfo={this.props.info}/>
+                    return <RestaurantCard key={restaurant.id} selectedRestaurant={restaurant} moreInfo={this.props.info} sendToMatch={this.props.sendToMatch}/>
                 })}
             </div>
         );

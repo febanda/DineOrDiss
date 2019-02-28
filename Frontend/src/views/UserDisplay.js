@@ -20,10 +20,11 @@ export class UserDisplay extends Component {
     }
 
     render() {
-       console.log(this.props)
-        // const { name } = this.state.user
+       console.log(this.state.user)
+        const { name } = this.state.user
         return (
             <div>
+                <span style={{float: 'right'}}>{name}</span>
                 <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
                 <YelpContainer/>
             </div>
