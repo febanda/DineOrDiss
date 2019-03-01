@@ -16,7 +16,7 @@ export class RestaurantCard extends Component {
                 <div className="name">Name: {restaurant.name}</div>
                 <div className="price">Price: {restaurant.price}</div>
                 <div className="rating">Rating: {restaurant.rating}</div>
-                <Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id, name: restaurant.name, image: restaurant.image_url, phone: restaurant.display_phone, address: restaurant.location.display_address.toString()}}}>Main</Link>
+                <Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Main</Link>
                 <button onClick={() => this.props.sendToMatch(restaurant)}>Like!</button>
     
             

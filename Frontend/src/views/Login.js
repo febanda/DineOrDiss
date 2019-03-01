@@ -31,9 +31,9 @@ export class Login extends Component {
             })
         })
          .then(res => res.json())
-        //  .then(console.log)
+        // .then(console.log)
          .then( (user) => {
-             this.props.onLogin(user.token, user)
+             this.props.onLogin(user.token, user, user.id)
              this.props.history.push(`/users/${user.id}`)
          } )
      }

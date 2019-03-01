@@ -36,6 +36,7 @@ export class YelpContainer extends Component {
             keywordSearch: '',
             restaurants: [],
             isLoading: false,
+            restaurant_id: null
             
             
         }
@@ -65,31 +66,55 @@ handleSearch = (searchItem) => {
 }
 
 
-sendToMatch = (selectedRestaurant) => {
-    // 
-    let postData = JSON.stringify({
-        business_id : selectedRestaurant.id
-    })
+
+sendToMatch = () => {
     
-    axios.post(`${API_URL}/restaurants`, 
-       postData ,
-        {headers: {
-            'Content-Type': 'application/json',
+    let axiosConfig = {
+        headers: {
+            'Content-Type':'application/json',
             'Authorization': `Bearer ${localStorage.token}`
-           }
-    })
-    .then(axios.post())
+        }
+    }
+    
+    let matchData = {
+        restaurant_id : this.state.restaurant_id, 
+        user_id: parseInt(localStorage.user_id)
+    }
+
+axios.post(`${API_URL}/matches`, matchData, axiosConfig)
+.then(console.log('Done'))
+
+
 }
 
-// createUser = () => {
-//     // console.log('h', this.state)
-//     server.post(`${API_URL}/users/`, (this.state)) 
-//     .then( user => {
-//         this.props.onSignUp(user.token, user)
-//         this.props.history.push(`/users/${user.id}`)
-//     })
 
-// }
+
+
+sendToRestaurant = (selectedRestaurant) => {
+    // 
+    let postData = {
+        business_id : selectedRestaurant.id
+    }
+
+
+    let axiosConfig = {
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${localStorage.token}`
+        }
+    }
+    
+    axios.post(`${API_URL}/restaurants`, postData, axiosConfig) 
+    .then(restaurant => {
+        this.setState({restaurant_id:  restaurant.data.id
+    }, () => {this.sendToMatch()})})
+
+    // console.log(matchData)
+    // .then(axios.post(`${API_URL}/matches`, matchData, axiosConfig))
+    // .then(console.log('Done'))
+
+}
+
 
 
 
@@ -103,7 +128,7 @@ sendToMatch = (selectedRestaurant) => {
         <div>
             <SearchForm handleSearch={debounce}/>
           {this.state.isLoading ?  <h1>Choose a place to eat!</h1> : <h1>Loading...</h1>}
-            <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>
+            <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToRestaurant}/>
            
         </div>
     );

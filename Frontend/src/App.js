@@ -5,6 +5,7 @@ import { UserDisplay } from './views/UserDisplay';
 import { Login } from './views/Login';
 import { SignUp } from './views/SignUp';
 import {RestaurantPage} from './views/RestaurantPage'
+import {Matches} from './views/Matches'
 
 
 
@@ -16,14 +17,18 @@ class App extends Component {
 
   state = {
     token: localStorage.getItem('token'),
+    user_id: localStorage.getItem('user_id'),
     user: JSON.parse(localStorage.getItem('user')) || {}
   }
 
 
-  setUserInState = (token, user) => {
+  setUserInState = (token, user, user_id) => {
+
     localStorage.setItem('token', token)
+    localStorage.setItem('user_id', user_id)
     localStorage.setItem('user', JSON.stringify(user))
-    this.setState({token, user})
+
+    this.setState({token, user, user_id})
   }
 
   logout = (history) => {
@@ -35,6 +40,7 @@ class App extends Component {
    
     
   }
+
 
   render() {
     // const {name} = this.state.user
@@ -52,6 +58,7 @@ class App extends Component {
         <Route path="/login" render={props => <Login {...props} onLogin={this.setUserInState}/>}/>
         <Route path="/signup" render={ props => <SignUp {...props} onSignUp={this.setUserInState} />}/>
         <Route path="/restaurantpage" component={RestaurantPage} />
+        <Route path="/matches" component={Matches}/>
         <Route path="/" render={ () => <Redirect to="/login" />}/>
        
       </Switch>
