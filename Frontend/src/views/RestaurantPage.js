@@ -75,6 +75,8 @@ export class RestaurantPage extends Component {
           <div>
             <h1>{restaurant.name}</h1>
             <Image src={restaurant.photos[0]} width="200" />
+            <Image src={restaurant.photos[1]} width="200" />
+            <Image src={restaurant.photos[2]} width="200" />
             <p>{restaurant.display_phone}</p>
             <p>Total Reviews: {restaurant.review_count}</p>
             <p>Rating: {restaurant.rating}</p>

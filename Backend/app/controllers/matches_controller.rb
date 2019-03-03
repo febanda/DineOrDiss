@@ -26,7 +26,7 @@ class MatchesController < ApplicationController
         end
         
         def match_params
-            params.permit(:user_id, :restaurant_id)
+            params.permit(:user_id, :business_id)
         end
         
         def define_current_match

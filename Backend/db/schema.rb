@@ -14,17 +14,10 @@ ActiveRecord::Schema.define(version: 2019_02_22_162056) do
 
   create_table "matches", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "restaurant_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["restaurant_id"], name: "index_matches_on_restaurant_id"
-    t.index ["user_id"], name: "index_matches_on_user_id"
-  end
-
-  create_table "restaurants", force: :cascade do |t|
     t.string "business_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_matches_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

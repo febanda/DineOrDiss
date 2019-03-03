@@ -10,7 +10,8 @@ export class UserDisplay extends Component {
 
 
     state = {
-        user: {}
+        user: {},
+        isLoading: false
     }
     
 

@@ -1,6 +1,6 @@
 class User < ApplicationRecord
     has_secure_password
-    has_many :restaurants, through: :matches 
+    has_many :matches 
 
     def token 
         JWT.encode({user_id: self.id}, 'asdf')

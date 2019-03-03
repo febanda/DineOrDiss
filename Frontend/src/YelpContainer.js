@@ -5,10 +5,19 @@ import RestaurantList from "./RestaurantList"
 import SearchForm from "./SearchForm"
 import _ from "lodash"
 import {API_URL} from './constants';
+import {Link} from 'react-router-dom' 
 // import {server} from '../server'
 
 
-
+// let updateElementInArray = (array, id, values) => {
+//   return array.map( (element) => {
+//     if(element.id == id){
+//       return { ...element, ...values }
+//     } else {
+//       return element
+//     }
+//   })
+// }
 
 
 
@@ -33,26 +42,38 @@ export class YelpContainer extends Component {
     constructor(){
         super()
         this.state = {
+            user: {},
+            user_id : parseInt(localStorage.user_id),
             keywordSearch: '',
             restaurants: [],
             isLoading: false,
-            restaurant_id: null
-            
+            restaurant_id: null,
+            matches: [],
+            matchedrestaurants: []
             
         }
     }
 
-
-// axios uses 
+   
   componentDidMount(){
+    axios.get(`${API_URL}/users/${this.props.match.params.id}`,{
+        headers:{
+            Authorization: `BEARER ${this.props.token}`
+        }
+    })
+        .then( user => this.setState({ user }, () => {this.searchRestaurant()}))
     
-      axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', config)
-      .then(res => {
-          this.setState({
-              restaurants: res.data.businesses,
-              isLoading: true
-          })
+  }
+
+  searchRestaurant = () => {
+    axios.get('https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search', config)
+  .then(res => {
+      this.setState({
+          restaurants: res.data.businesses,
+          isLoading: true
       })
+  })
+  .then(() => {this.showMatch()})
   }
 
 handleSearch = (searchItem) => {
@@ -63,12 +84,13 @@ handleSearch = (searchItem) => {
             restaurants: res.data.businesses
         })
     })
+    .then(() => {this.showMatch()})
 }
 
 
 
-sendToMatch = () => {
-    
+sendToMatch = (selectedRestaurant) => {
+    console.log(selectedRestaurant)
     let axiosConfig = {
         headers: {
             'Content-Type':'application/json',
@@ -77,45 +99,58 @@ sendToMatch = () => {
     }
     
     let matchData = {
-        restaurant_id : this.state.restaurant_id, 
-        user_id: parseInt(localStorage.user_id)
+        business_id : selectedRestaurant.id, 
+        user_id: this.state.user_id
     }
 
 axios.post(`${API_URL}/matches`, matchData, axiosConfig)
-.then(console.log('Done'))
+.then(() => {this.showMatch()})
 
 
 }
 
-
-
-
-sendToRestaurant = (selectedRestaurant) => {
-    // 
-    let postData = {
-        business_id : selectedRestaurant.id
-    }
-
-
+showMatch = () => {
     let axiosConfig = {
         headers: {
             'Content-Type':'application/json',
             'Authorization': `Bearer ${localStorage.token}`
         }
     }
+    axios.get(`${API_URL}/matches`, axiosConfig)
+    .then(matches => {
+        this.setState({
+            matches: matches.data
+        }, ()=> {this.getBusinessId()})})
+
     
-    axios.post(`${API_URL}/restaurants`, postData, axiosConfig) 
-    .then(restaurant => {
-        this.setState({restaurant_id:  restaurant.data.id
-    }, () => {this.sendToMatch()})})
-
-    // console.log(matchData)
-    // .then(axios.post(`${API_URL}/matches`, matchData, axiosConfig))
-    // .then(console.log('Done'))
-
 }
 
+getBusinessId = () => {
+   
 
+    let user_matches = this.state.matches.filter(match => {
+     return match.user_id === this.state.user_id
+    })
+
+    let arr = []
+
+    this.state.restaurants.forEach(restaurant => {
+        
+        for(let i = 0; i < user_matches.length; i++){
+           if(restaurant.id === user_matches[i].business_id){
+            arr.push(restaurant)
+           }
+               
+            
+        }})
+
+    arr = arr.filter((v, i, a) => a.indexOf(v) === i)    
+    
+    this.setState({
+        matchedrestaurants: arr
+    }, () => {console.log(this.state.matchedrestaurants)})
+        
+}
 
 
   render() {
@@ -126,11 +161,20 @@ sendToRestaurant = (selectedRestaurant) => {
       console.log(this.state.restaurants)
     return (
         <div>
+        <div>
+        <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+
+        <Link to={{pathname: '/matches', state: {matchedrestaurants: this.state.matchedrestaurants}}}>Matches</Link>
+        </div>
+        <div>
+     
             <SearchForm handleSearch={debounce}/>
-          {this.state.isLoading ?  <h1>Choose a place to eat!</h1> : <h1>Loading...</h1>}
-            <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToRestaurant}/>
+          {this.state.isLoading ?  <h1>Dine or Diss!</h1> : <h1>Loading...</h1>}
+            <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>
            
         </div>
+        </div>
+
     );
   }
 }
