@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { API_URL } from '../constants';
 import {YelpContainer} from '../YelpContainer';
 import {Link} from 'react-router-dom'
-import {Matches} from './Matches'
+
 
 
 export class UserDisplay extends Component {

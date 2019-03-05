@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Card, Image } from 'semantic-ui-react'
+import { Image } from 'semantic-ui-react'
 
 export class MatchedCard extends Component {
     render() {
-        let restaurant = this.props.selectedRestaurant 
+        const restaurant = this.props.selectedRestaurant 
+        console.log(this.props)
         return (
             <div>
                 <div className="image">
@@ -12,6 +13,7 @@ export class MatchedCard extends Component {
                 <div className="name">Name: {restaurant.name}</div>
                 <div className="price">Price: {restaurant.price}</div>
                 <div className="rating">Rating: {restaurant.rating}</div>
+                <button onClick={() => this.props.deleteMatch(restaurant)}>Delete!</button>
             </div>
         );
     }

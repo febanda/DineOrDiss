@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { API_URL } from '../constants';
-import axios from "axios";
 import {MatchedCard} from './MatchedCard'
 
 
@@ -11,13 +9,19 @@ export class Matches extends Component {
 
   
     render() {
-        let restaurants = (this.props.location.state.matchedrestaurants)
-        console.log(restaurants)
+        let restaurants = this.props
+    //     if(this.props.location.value){
+    //         restaurants = this.props.location.value
+    //     }
+    //    else{
+    //         restaurants = this.props
+    //    }
+        console.log(this.props)
         return (
             <div>
                 <div>
-                {restaurants.map(restaurant => {
-                    return <MatchedCard key={restaurant.id} selectedRestaurant={restaurant}/>
+                {restaurants.matchedrestaurants.map(restaurant => {
+                    return <MatchedCard key={restaurant.id} selectedRestaurant={restaurant} deleteMatch={restaurants.deleteMatch}/>
                 })}
             </div>
             </div>

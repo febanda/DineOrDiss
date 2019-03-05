@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { API_KEY } from "../constants";
 import { Image } from "semantic-ui-react";
+import {ReviewList} from "../ReviewList"
 
 // console.log(this.props.location.state)
 
@@ -16,14 +17,14 @@ export class RestaurantPage extends Component {
   }
 
   componentDidMount = () => {
+    console.log(this.props.location.state.id)
     let config = {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${API_KEY}`
       }
     };
-    axios
-      .get(
+    axios.get(
         `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${
           this.props.location.state.id
         }`,
@@ -33,7 +34,7 @@ export class RestaurantPage extends Component {
         this.setState({
           restaurant: restaurant,
           isLoading: true
-        });
+        }, () => {this.getReviews()});
       });
   };
 
@@ -45,29 +46,24 @@ export class RestaurantPage extends Component {
       }
     };
 
-    axios
-      .get(
+    axios.get(
         `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/${
           this.props.location.state.id
         }/reviews`,
         config
       )
-      .then(reviews => {
+      .then(data => {
+
         this.setState({
-          reviews: reviews
-        });
-      })
-      // .then(console.log(this.state.reviews));
-  };
+          reviews: data.data.reviews
+        }, () => {console.log(this.state.reviews)})} 
+        )}
+      
 
   render() {
     let restaurant = this.state.restaurant.data;
     console.log(restaurant);
 
-    // const photos = restaurant.photos
-    // const allPhotos = photos.map(photo => {
-    //   return photo
-    // })
 
     return (
       <div>
@@ -82,6 +78,7 @@ export class RestaurantPage extends Component {
             <p>Rating: {restaurant.rating}</p>
             <p>Location: {restaurant.location["display_address"]}</p>
             <p>Price: {restaurant.price}</p>
+            <ReviewList reviews={this.state.reviews}/>
           </div>
         ) : (
           <p>Loading...</p>

@@ -6,18 +6,32 @@ import SearchForm from "./SearchForm"
 import _ from "lodash"
 import {API_URL} from './constants';
 import {Link} from 'react-router-dom' 
-// import {server} from '../server'
+import {PriceForm} from "./PriceForm"
+import {Matches} from "./views/Matches"
 
 
-// let updateElementInArray = (array, id, values) => {
-//   return array.map( (element) => {
-//     if(element.id == id){
-//       return { ...element, ...values }
-//     } else {
-//       return element
-//     }
-//   })
-// }
+
+     
+
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(displayLocationInfo);
+      }
+      
+
+      const watcher = navigator.geolocation.watchPosition(displayLocationInfo)
+
+      setTimeout(() => {
+          navigator.geolocation.clearWatch(watcher)
+      }, 15000)
+    
+      function displayLocationInfo(position) {
+        const lng = position.coords.longitude;
+        const lat = position.coords.latitude;
+
+        console.log(`longitude: ${lng} | latitude: ${lat}`)
+    }
+
+  
 
 
 
@@ -26,9 +40,9 @@ const config = {
     headers: {'Authorization': `Bearer ${API_KEY}`},
     params: {
         // term: 'restaurants',
-        latitude: 29.760799,
-        longitude: -95.369507,
-        sort_by: 'distance',
+        latitude: 29.75919,
+        longitude: -95.36324,
+        sort_by: 'rating',
         limit: 10
     }
 }
@@ -45,14 +59,23 @@ export class YelpContainer extends Component {
             user: {},
             user_id : parseInt(localStorage.user_id),
             keywordSearch: '',
+            priceSearch: '',
             restaurants: [],
             isLoading: false,
             restaurant_id: null,
             matches: [],
-            matchedrestaurants: []
+            matchedrestaurants: [],
+            searchValue: '1',
+            match_ids: [],
+            showMatches: false
             
         }
     }
+
+    
+
+    
+    
 
    
   componentDidMount(){
@@ -77,7 +100,7 @@ export class YelpContainer extends Component {
   }
 
 handleSearch = (searchItem) => {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchItem}`, config)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchItem}&price=${this.state.searchValue}`, config)
     .then(res => {
         this.setState({
             keywordSearch: searchItem,
@@ -87,6 +110,16 @@ handleSearch = (searchItem) => {
     .then(() => {this.showMatch()})
 }
 
+priceFilter = (value) => {
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?price=${value}`, config)
+    .then(res => {
+        this.setState({
+            priceSearch: value,
+            restaurants: res.data.businesses,
+            searchValue: value
+        })
+    })
+}
 
 
 sendToMatch = (selectedRestaurant) => {
@@ -125,6 +158,23 @@ showMatch = () => {
     
 }
 
+
+deleteMatch = (restaurant) => {
+
+    let match = this.state.matches.find(match => {
+        return match.user_id === this.state.user_id && match.business_id == restaurant.id 
+    })
+    
+    let axiosConfig = {
+        headers: {
+            'Content-Type':'application/json',
+            'Authorization': `Bearer ${localStorage.token}`
+        }
+    }
+
+    axios.delete(`${API_URL}/matches/${match.id}`, axiosConfig)
+}
+
 getBusinessId = () => {
    
 
@@ -133,25 +183,35 @@ getBusinessId = () => {
     })
 
     let arr = []
+    // let match_ids = []
 
     this.state.restaurants.forEach(restaurant => {
         
         for(let i = 0; i < user_matches.length; i++){
            if(restaurant.id === user_matches[i].business_id){
             arr.push(restaurant)
+            // match_ids.push(user_matches[i])
            }
                
             
         }})
 
     arr = arr.filter((v, i, a) => a.indexOf(v) === i)    
+    // match_ids = match_ids.filter((v, i, a) => a.indexOf(v) === i)    
+
     
     this.setState({
-        matchedrestaurants: arr
+        matchedrestaurants: arr,
+        // match_ids: match_ids
     }, () => {console.log(this.state.matchedrestaurants)})
         
 }
 
+changeView = () => {
+    this.setState({
+        showMatches: !this.state.showMatches
+    })
+}
 
   render() {
     //   You can make a debounce constant and pass it to the search form, then with the input from the form you pass it back to debounce so it can hand it over to the handleSearch method then wait the desired amount of time before running
@@ -164,15 +224,27 @@ getBusinessId = () => {
         <div>
         <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
 
-        <Link to={{pathname: '/matches', state: {matchedrestaurants: this.state.matchedrestaurants}}}>Matches</Link>
+        {/* <Link to={{pathname: '/matches', value: {matchedrestaurants: this.state.matchedrestaurants, deleteMatch: this.deleteMatch}}}>Matches</Link> */}
+        
         </div>
+        {this.state.showMatches 
+            ? 
+      
+            <div>
+                  <button onClick={this.changeView}>Home</button>
+            <Matches matchedrestaurants={this.state.matchedrestaurants} deleteMatch={this.deleteMatch} />
+            </div> 
+        : 
+       
         <div>
-     
-            <SearchForm handleSearch={debounce}/>
-          {this.state.isLoading ?  <h1>Dine or Diss!</h1> : <h1>Loading...</h1>}
-            <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>
-           
-        </div>
+             <button onClick={this.changeView}>Matches</button>
+        <SearchForm handleSearch={debounce}/>
+        <PriceForm priceFilter={this.priceFilter}/>
+      {this.state.isLoading ?  <h1>Dine or Diss!</h1> : <h1>Loading...</h1>}
+        <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>  
+    </div>
+        }
+              
         </div>
 
     );

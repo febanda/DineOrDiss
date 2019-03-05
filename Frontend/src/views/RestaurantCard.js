@@ -15,7 +15,7 @@ export class RestaurantCard extends Component {
                 </div>
                 <div className="name">Name: {restaurant.name}</div>
                 <div className="price">Price: {restaurant.price}</div>
-                <div className="rating">Rating: {restaurant.rating}</div>
+                <div className="rating">Rating: {restaurant.rating} / Total Reviews: {restaurant.review_count}</div>
                 <Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Main</Link>
                 <button onClick={() => this.props.sendToMatch(restaurant)}>Like!</button>
     
