@@ -5,10 +5,9 @@ import {Switch, Route, Redirect} from 'react-router';
 import { Login } from './views/Login';
 import { SignUp } from './views/SignUp';
 import {RestaurantPage} from './views/RestaurantPage'
-import {Matches} from './views/Matches'
 import YelpContainer from './YelpContainer';
-import {API_URL} from './constants';
-import axios from "axios";
+
+
 
 
 

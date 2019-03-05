@@ -3,6 +3,7 @@ import axios from "axios";
 import { API_KEY } from "../constants";
 import { Image } from "semantic-ui-react";
 import {ReviewList} from "../ReviewList"
+import {Link} from 'react-router-dom'
 
 // console.log(this.props.location.state)
 
@@ -79,6 +80,7 @@ export class RestaurantPage extends Component {
             <p>Location: {restaurant.location["display_address"]}</p>
             <p>Price: {restaurant.price}</p>
             <ReviewList reviews={this.state.reviews}/>
+            {/* <Link to={{ pathname: '/users/user_id'}}>Home</Link> */}
           </div>
         ) : (
           <p>Loading...</p>

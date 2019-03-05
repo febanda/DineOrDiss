@@ -5,7 +5,6 @@ import RestaurantList from "./RestaurantList"
 import SearchForm from "./SearchForm"
 import _ from "lodash"
 import {API_URL} from './constants';
-import {Link} from 'react-router-dom' 
 import {PriceForm} from "./PriceForm"
 import {Matches} from "./views/Matches"
 
@@ -13,25 +12,27 @@ import {Matches} from "./views/Matches"
 
      
 
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(displayLocationInfo);
-      }
-      
 
-      const watcher = navigator.geolocation.watchPosition(displayLocationInfo)
 
-      setTimeout(() => {
-          navigator.geolocation.clearWatch(watcher)
-      }, 15000)
+    // if (navigator.geolocation) {
+    //     navigator.geolocation.getCurrentPosition(displayLocationInfo);
+    //   }
     
-      function displayLocationInfo(position) {
-        const lng = position.coords.longitude;
-        const lat = position.coords.latitude;
+    
+    //   let location = []
 
-        console.log(`longitude: ${lng} | latitude: ${lat}`)
-    }
 
-  
+    // function displayLocationInfo(position) {
+    //     let lng = position.coords.longitude;
+    //     let lat = position.coords.latitude;
+    //     location.push(lng, lat)
+    //     console.log(`longitude: ${lng} | latitude: ${lat}`)
+    // }
+       
+       
+    
+
+    
 
 
 
@@ -39,9 +40,8 @@ const config = {
     method: 'GET',
     headers: {'Authorization': `Bearer ${API_KEY}`},
     params: {
-        // term: 'restaurants',
-        latitude: 29.75919,
-        longitude: -95.36324,
+        latitude: null,
+        longitude: null,
         sort_by: 'rating',
         limit: 10
     }
@@ -49,9 +49,6 @@ const config = {
 
 export class YelpContainer extends Component {
 
-    
-
-    
 
     constructor(){
         super()
@@ -70,21 +67,29 @@ export class YelpContainer extends Component {
             showMatches: false
             
         }
+         
     }
 
-    
-
-    
-    
-
+   
    
   componentDidMount(){
-    axios.get(`${API_URL}/users/${this.props.match.params.id}`,{
-        headers:{
-            Authorization: `BEARER ${this.props.token}`
-        }
-    })
-        .then( user => this.setState({ user }, () => {this.searchRestaurant()}))
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(async(position) => {
+            config.params.longitude = position.coords.longitude;
+            config.params.latitude = position.coords.latitude;
+            const user = await axios.get(`${API_URL}/users/${this.props.match.params.id}`,{
+                headers:{
+                    Authorization: `BEARER ${this.props.token}`
+                }
+            })
+                // .then( user => this.setState({ user }, () => {this.searchRestaurant()}))
+                this.setState({ user }, () => {this.searchRestaurant()})
+            // console.log(`longitude: ${lng} | latitude: ${lat}`)
+        });
+      }
+    
+    
+        
     
   }
 
@@ -183,26 +188,26 @@ getBusinessId = () => {
     })
 
     let arr = []
-    // let match_ids = []
+    
 
     this.state.restaurants.forEach(restaurant => {
         
         for(let i = 0; i < user_matches.length; i++){
            if(restaurant.id === user_matches[i].business_id){
             arr.push(restaurant)
-            // match_ids.push(user_matches[i])
+            
            }
                
             
         }})
 
     arr = arr.filter((v, i, a) => a.indexOf(v) === i)    
-    // match_ids = match_ids.filter((v, i, a) => a.indexOf(v) === i)    
+        
 
     
     this.setState({
         matchedrestaurants: arr,
-        // match_ids: match_ids
+        
     }, () => {console.log(this.state.matchedrestaurants)})
         
 }
@@ -218,13 +223,12 @@ changeView = () => {
     const debounce = _.debounce(term => {
         this.handleSearch(term)
     }, 500)
-      console.log(this.state.restaurants)
+    // console.log(location)
     return (
         <div>
         <div>
         <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
 
-        {/* <Link to={{pathname: '/matches', value: {matchedrestaurants: this.state.matchedrestaurants, deleteMatch: this.deleteMatch}}}>Matches</Link> */}
         
         </div>
         {this.state.showMatches 

@@ -31,7 +31,7 @@ export class UserDisplay extends Component {
         return (
             <div>
                 <span style={{float: 'right'}}>{name}</span>
-                <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+                <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
                 <button><Link to={{pathname: '/matches'}}>Matches</Link></button>
                 <YelpContainer/>
             </div>
