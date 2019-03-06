@@ -5,7 +5,7 @@ export class ReviewCard extends Component {
         let review = this.props.selectedReview
         return (
             <div>
-                <p>{review.text}</p>
+                <li>{review.text}</li>
             </div>
         );
     }

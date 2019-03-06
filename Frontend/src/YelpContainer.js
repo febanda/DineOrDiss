@@ -43,7 +43,7 @@ const config = {
         latitude: null,
         longitude: null,
         sort_by: 'rating',
-        limit: 10
+        limit: 30
     }
 }
 
@@ -179,6 +179,8 @@ deleteMatch = (restaurant) => {
     }
 
     axios.delete(`${API_URL}/matches/${match.id}`, axiosConfig)
+    .then(this.showMatch)
+   
 }
 
 getBusinessId = () => {
@@ -220,13 +222,16 @@ changeView = () => {
 }
 
   render() {
+   
     //   You can make a debounce constant and pass it to the search form, then with the input from the form you pass it back to debounce so it can hand it over to the handleSearch method then wait the desired amount of time before running
     const debounce = _.debounce(term => {
         this.handleSearch(term)
     }, 500)
-    // console.log(location)
+    
     return (
         <div>
+              <span style={{float: 'right'}}>{localStorage.user_name}</span><br/>
+              <span style={{float: 'right'}}>{localStorage.user_email}</span>
         <div>
         <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
 
@@ -245,7 +250,7 @@ changeView = () => {
              <button onClick={this.changeView}>Matches</button>
         <SearchForm handleSearch={debounce}/>
         <PriceForm priceFilter={this.priceFilter}/>
-      {this.state.isLoading ?  <h1>Dine or Diss!</h1> : <h1>Loading...</h1>}
+      {this.state.isLoading ?  <h1 className="Header">Dine or Diss!</h1> : <h1>Loading...</h1>}
         <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>  
     </div>
         }

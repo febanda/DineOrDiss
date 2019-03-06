@@ -21,7 +21,7 @@ export class SignUp extends Component {
         // console.log('h', this.state)
         server.post(`${API_URL}/users/`, (this.state)) 
         .then( user => {
-            this.props.onSignUp(user.token, user, user.id)
+            this.props.onSignUp(user.token, user, user.id, user.name, user.email)
             this.props.history.push(`/users/${user.id}`)
         })
     

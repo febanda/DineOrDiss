@@ -24,17 +24,23 @@ class App extends Component {
     // matchedRestaurants: [],
     token: localStorage.getItem('token'),
     user_id: localStorage.getItem('user_id'),
+    user_name: localStorage.getItem('user_name'),
+    user_email: localStorage.getItem('user_email'),
+
     user: JSON.parse(localStorage.getItem('user')) || {}
   }
 
 
-  setUserInState = (token, user, user_id) => {
+  setUserInState = (token, user, user_id, user_name, user_email) => {
 
     localStorage.setItem('token', token)
     localStorage.setItem('user_id', user_id)
+    localStorage.setItem('user_name', user_name)
+    localStorage.setItem('user_email', user_email)
+
     localStorage.setItem('user', JSON.stringify(user))
 
-    this.setState({token, user, user_id})
+    this.setState({token, user, user_id, user_name, user_email})
   }
 
   logout = (history) => {

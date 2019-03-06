@@ -26,11 +26,12 @@ export class UserDisplay extends Component {
     }
 
     render() {
-       console.log(this.state.user)
-        const { name } = this.state.user
+        console.log('hello')
+        const {email, name} = this.state.user
         return (
             <div>
-                <span style={{float: 'right'}}>{name}</span>
+                <h1>{email}</h1>
+                <p>{name}</p>
                 <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
                 <button><Link to={{pathname: '/matches'}}>Matches</Link></button>
                 <YelpContainer/>
