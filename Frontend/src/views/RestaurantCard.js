@@ -1,15 +1,31 @@
 import React, { Component } from 'react';
 import { Card, Image } from 'semantic-ui-react'
 import {Link} from 'react-router-dom' 
+import Swiper from 'react-id-swiper'
+
 
 export class RestaurantCard extends Component {
 
     
     render() {
         const restaurant = this.props.selectedRestaurant
+
+        
+            const params = {
+                slidesPerView: 4,
+                spaceBetween: 30,
+                centeredSlides: true,
+                grabCursor: true,
+                pagination: {
+                  el: '.swiper-pagination',
+                  clickable: true,
+                } 
+        }
+        
         return (
-            <Card>
+            <Swiper {...params}>
             <div>
+                <button onClick={() => this.props.addIndex()}>Diss</button>
                 <div className="image">
                 <Image src={restaurant.image_url} width="200"></Image>
                 </div>
@@ -21,7 +37,7 @@ export class RestaurantCard extends Component {
     
             
             </div>
-           </Card>
+            </Swiper>
         );
     }
 }

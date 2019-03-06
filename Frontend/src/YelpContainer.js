@@ -85,6 +85,7 @@ export class YelpContainer extends Component {
                 // .then( user => this.setState({ user }, () => {this.searchRestaurant()}))
                 this.setState({ user }, () => {this.searchRestaurant()})
             // console.log(`longitude: ${lng} | latitude: ${lat}`)
+            console.log(config.params.longitude, config.params.latitude)
         });
       }
     
