@@ -106,7 +106,7 @@ export class YelpContainer extends Component {
   }
 
 handleSearch = (searchItem) => {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?term=${searchItem}&price=${this.state.searchValue}`, config)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${searchItem}&price=${this.state.searchValue}`, config)
     .then(res => {
         this.setState({
             keywordSearch: searchItem,
@@ -117,7 +117,7 @@ handleSearch = (searchItem) => {
 }
 
 priceFilter = (value) => {
-    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?price=${value}`, config)
+    axios.get(`https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?categories=${this.state.keywordSearch}&price=${value}`, config)
     .then(res => {
         this.setState({
             priceSearch: value,
@@ -230,10 +230,15 @@ changeView = () => {
     
     return (
         <div>
-              <span style={{float: 'right'}}>{localStorage.user_name}</span><br/>
-              <span style={{float: 'right'}}>{localStorage.user_email}</span>
+                <div className="navbar">
+                    <span style={{float: 'right'}}>{localStorage.user_name}</span><br/>
+                    <span style={{float: 'right'}}>{localStorage.user_email}</span>
+                    <button className="matchbutton" onClick={this.changeView}>Matches</button>
+                    <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+              </div>
+        
         <div>
-        <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+        {/* <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button> */}
 
         
         </div>
@@ -241,13 +246,13 @@ changeView = () => {
             ? 
       
             <div>
-                  <button onClick={this.changeView}>Home</button>
+                  <button className="homebutton" onClick={this.changeView}>Home</button>
             <Matches matchedrestaurants={this.state.matchedrestaurants} deleteMatch={this.deleteMatch} />
             </div> 
         : 
        
         <div>
-             <button className="matchbutton" onClick={this.changeView}>Matches</button>
+             {/* <button className="matchbutton" onClick={this.changeView}>Matches</button> */}
         
         <div className="mainContainer">
       {this.state.isLoading ?  <h1 className="Header">Dine or Diss</h1> : <h1>Loading...</h1>}

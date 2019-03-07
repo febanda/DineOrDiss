@@ -68,7 +68,9 @@ export class RestaurantPage extends Component {
 
 
     return (
-  
+      
+
+      
       <div>
         {this.state.isLoading ? (
           <div className="restInfo">
@@ -86,7 +88,7 @@ export class RestaurantPage extends Component {
             <p>Location: {restaurant.location["display_address"]}</p>
             <p>Price: {restaurant.price}</p>
             <ReviewList reviews={this.state.reviews}/>
-            {/* <Link to={{ pathname: '/'}}>Home</Link> */}
+            <button className="restpagehomebutton"><Link to={{ pathname: `/users/${localStorage.user_id}`}}>Home</Link></button>
           </div>
         ) : (
           <p>Loading...</p>

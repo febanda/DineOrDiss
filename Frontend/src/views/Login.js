@@ -55,7 +55,7 @@ export class Login extends Component {
                     <input onChange={this.handleChange} value={password} name="password" type="password" />
                 </div>
                 <button onClick={this.logIn}>Sign In</button>
-                <Link to="SignUp">Create Account</Link>
+                <button><Link to="SignUp">Create Account</Link></button>
             </div>
         </div>
         );

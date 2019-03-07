@@ -19,11 +19,14 @@ export class Matches extends Component {
         console.log(this.props)
         return (
             <div>
+                <div className="matchheader">
+                <h1>Your Matches!</h1>
+                </div>
                 <div>
                 {restaurants.matchedrestaurants.map(restaurant => {
                     return <MatchedCard key={restaurant.id} selectedRestaurant={restaurant} deleteMatch={restaurants.deleteMatch}/>
                 })}
-            </div>
+                </div>
             </div>
         );
     }

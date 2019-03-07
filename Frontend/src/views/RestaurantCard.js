@@ -31,7 +31,7 @@ export class RestaurantCard extends Component {
                     <div className="name">Name: {restaurant.name}</div>
                     <div className="price">Price: {restaurant.price}</div>
                     <div className="rating">Rating: {restaurant.rating} / Total Reviews: {restaurant.review_count}</div>
-                    <button><Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Info</Link></button>
+                    <button><Link className="infolink" to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Info</Link></button>
                 </div>
 
             </div>
