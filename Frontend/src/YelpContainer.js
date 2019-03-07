@@ -233,7 +233,7 @@ changeView = () => {
               <span style={{float: 'right'}}>{localStorage.user_name}</span><br/>
               <span style={{float: 'right'}}>{localStorage.user_email}</span>
         <div>
-        <button onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+        <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
 
         
         </div>
@@ -247,11 +247,14 @@ changeView = () => {
         : 
        
         <div>
-             <button onClick={this.changeView}>Matches</button>
-        <SearchForm handleSearch={debounce}/>
+             <button className="matchbutton" onClick={this.changeView}>Matches</button>
+        
+        <div className="mainContainer">
+      {this.state.isLoading ?  <h1 className="Header">Dine or Diss</h1> : <h1>Loading...</h1>}
+      <SearchForm handleSearch={debounce}/>
         <PriceForm priceFilter={this.priceFilter}/>
-      {this.state.isLoading ?  <h1 className="Header">Dine or Diss!</h1> : <h1>Loading...</h1>}
-        <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>  
+        <RestaurantList restaurants={this.state.restaurants} info={this.sendToDetail} sendToMatch={this.sendToMatch}/>
+        </div>
     </div>
         }
               

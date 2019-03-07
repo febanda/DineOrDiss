@@ -30,22 +30,24 @@ export class SignUp extends Component {
     render() {
         const {name, email, password} = this.state
         return (
-            <div>
-            <h1>Sign Up!</h1>
-            <div>
-                <label>Name</label>
-                <input onChange={this.handleChange} value={name} name="name" type="text" />
-            </div>
-            <div>
+            <div className="signup-form">
+                <div>
+                <h1>Sign Up</h1>
+                    <div>
+                        <label>Name</label>
+                        <input onChange={this.handleChange} value={name} name="name" type="text" />
+                    </div>
+                <div>
                 <label>Email</label>
                 <input onChange={this.handleChange} value={email} name="email" type="text" />
-            </div>
+                </div>
             <div>
                 <label>Password</label>
                 <input onChange={this.handleChange} value={password} name="password" type="password" />
             </div>
             <button onClick={this.createUser}>Create User</button>
             <Link to="login">Login</Link>
+            </div>
         </div>
         );
     }

@@ -5,7 +5,7 @@ export class PriceForm extends Component {
     render() {
         // let res = this.menu.value 
         return (
-            <div>
+            <div className="restcard">
             <select ref = "Price" onChange={e => this.props.priceFilter(e.target.value)}>
             <option selected={true} disabled={true} >Price</option>
             <option value="1">$</option>

@@ -13,7 +13,8 @@ export class RestaurantPage extends Component {
     this.state = {
       restaurant: {},
       isLoading: false,
-      reviews: []
+      reviews: [],
+      showAll: false
     };
   }
 
@@ -67,20 +68,25 @@ export class RestaurantPage extends Component {
 
 
     return (
+  
       <div>
         {this.state.isLoading ? (
-          <div>
-            <h1>{restaurant.name}</h1>
-            <Image src={restaurant.photos[0]} width="200" />
-            <Image src={restaurant.photos[1]} width="200" />
-            <Image src={restaurant.photos[2]} width="200" />
+          <div className="restInfo">
+          <div className="title-photos">
+              <h1>{restaurant.name}</h1>
+              <div className="photos">
+                <Image src={restaurant.photos[0]} width="200" />
+                <Image className="middlepic" src={restaurant.photos[1]} width="200" />
+                <Image src={restaurant.photos[2]} width="200" />
+              </div>
+            </div>
             <p>{restaurant.display_phone}</p>
             <p>Total Reviews: {restaurant.review_count}</p>
             <p>Rating: {restaurant.rating}</p>
             <p>Location: {restaurant.location["display_address"]}</p>
             <p>Price: {restaurant.price}</p>
             <ReviewList reviews={this.state.reviews}/>
-            {/* <Link to={{ pathname: '/users/user_id'}}>Home</Link> */}
+            {/* <Link to={{ pathname: '/'}}>Home</Link> */}
           </div>
         ) : (
           <p>Loading...</p>

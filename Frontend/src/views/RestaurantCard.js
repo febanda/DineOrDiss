@@ -18,20 +18,20 @@ export class RestaurantCard extends Component {
             
             <div className="restcard">
                 <div className="buttons">
-                    <button onClick={() => this.props.addIndex()}>Diss</button>
+                    <button className="leftbutton" styles="vertical-align:middle" onClick={() => this.props.addIndex()}><span>Diss!</span></button>
                     <div className="image">
                         <Image src={restaurant.image_url} width="350"></Image>
                     </div>
 
                     
-                     <button onClick={() => {this.props.sendToMatch(restaurant); this.props.addIndex()}}>Like!</button>
+                     <button className="rightbutton" onClick={() => {this.props.sendToMatch(restaurant); this.props.addIndex()}}><span>Like!</span></button>
                 </div>
 
                 <div>
                     <div className="name">Name: {restaurant.name}</div>
                     <div className="price">Price: {restaurant.price}</div>
                     <div className="rating">Rating: {restaurant.rating} / Total Reviews: {restaurant.review_count}</div>
-                    <button><Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Main</Link></button>
+                    <button><Link to={{ pathname: '/restaurantpage', state: { id: restaurant.id}}}>Info</Link></button>
                 </div>
 
             </div>

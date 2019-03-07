@@ -43,18 +43,20 @@ export class Login extends Component {
     render() {
         const {email, password} = this.state
         return (
+        <div className="login-container">
             <div>
-            <h1>Login!</h1>
-            <div>
-                <label>Email</label>
-                <input onChange={this.handleChange} value={email} name="email" type="text" />
+                <h1>Login</h1>
+                <div>
+                    <label>Email</label>
+                    <input onChange={this.handleChange} value={email} name="email" type="text" />
+                </div>
+                <div>
+                    <label>Password</label>
+                    <input onChange={this.handleChange} value={password} name="password" type="password" />
+                </div>
+                <button onClick={this.logIn}>Sign In</button>
+                <Link to="SignUp">Create Account</Link>
             </div>
-            <div>
-                <label>Password</label>
-                <input onChange={this.handleChange} value={password} name="password" type="password" />
-            </div>
-            <button onClick={this.logIn}>Sign In</button>
-            <Link to="SignUp">Create Account</Link>
         </div>
         );
     }
