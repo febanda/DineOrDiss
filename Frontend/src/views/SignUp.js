@@ -34,19 +34,21 @@ export class SignUp extends Component {
                 <div>
                 <h1>Sign Up</h1>
                     <div>
-                        <label>Name</label>
+                        <label>Name: </label>
                         <input onChange={this.handleChange} value={name} name="name" type="text" />
                     </div>
-                <div>
-                <label>Email</label>
+                <div className="emailinput">
+                <label>Email: </label>
                 <input onChange={this.handleChange} value={email} name="email" type="text" />
                 </div>
-            <div>
-                <label>Password</label>
+            <div className="passwordinput">
+                <label>Password: </label>
                 <input onChange={this.handleChange} value={password} name="password" type="password" />
             </div>
-            <button onClick={this.createUser}>Create User</button>
-            <button><Link to="login">Login</Link></button>
+            <div className="signupbuttons">
+                <button onClick={this.createUser}>Create User</button><br/>
+                <button><Link to="login">Login</Link></button>
+            </div>
             </div>
         </div>
         );

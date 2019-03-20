@@ -18,9 +18,9 @@ body {
     
 }
 
-.logout{
+/* .logout{
 float:right
-}
+} */
 
 .Header{
   display: flex;
@@ -33,11 +33,16 @@ float:right
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
+  font-family: 'Anton', sans-serif;
 }
 
 .restcard img {
-  border-radius: 10px
+  border-radius: 10px;
+  
+
 }
+
+
 
 .buttons{
   display: flex;
@@ -64,9 +69,28 @@ float:right
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
+  border-radius: 10px;
 }
 
 .matchbutton:hover {opacity: 1}
+
+.logout{
+  background-color: rgb(99, 208, 99);
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.logout:hover {opacity: 1}
 
 .homebutton{
   background-color: #f4511e;
@@ -81,6 +105,12 @@ float:right
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
+}
+
+.homebutton a{
+  font-size: 16px;
+  color: black;
+  text-decoration: none;
 }
 
 .homebutton:hover {opacity: 1}
@@ -194,6 +224,10 @@ float:right
   padding: 15px;
   padding-bottom: 30px;
   color: white;
+  font-family: 'Anton', sans-serif;
+
+
+
 }
 
 .title-photos{
@@ -222,8 +256,9 @@ float:right
   padding-top: 10px;
   padding-bottom: 15px;
   padding: 20px;
-  padding-bottom: 30px;
+  padding-bottom: 300px;
   color: white;
+  font-family: 'Anton', sans-serif;
 }
 
 .signup-form{
@@ -236,8 +271,9 @@ float:right
   padding-bottom: 15px;
   padding-left: 15px;
   padding: 20px;
-  padding-bottom: 30px;
+  padding-bottom: 300px;
   color: white;
+  font-family: 'Anton', sans-serif;
 }
 
 
@@ -269,6 +305,9 @@ float:right
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+
 }
 
 .matchinfo img{
@@ -288,5 +327,160 @@ float:right
   background: black;
   padding-bottom: 15px;
   color: white;
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+}
 
+.navbar button{
+  /* border-radius: 10px;
+  display: flex;
+  justify-content: flex-start; */
+  background-color:orangered;
+  border: none;
+  color: white;
+  padding: 16px 32px;
+  text-align: center;
+  font-size: 16px;
+  margin: 4px 2px;
+  opacity: 0.6;
+  transition: 0.3s;
+  display: inline-block;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 10px;
+}
+
+.passwordfield{
+  margin-bottom: 10%;
+  margin-top: 10%;
+  font-size: 16px;
+  
+}
+
+.emailinput{
+  margin-bottom: 10%;
+  margin-top: 10%;
+}
+
+.signupbuttons{
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: #f4511e;
+  border-radius: 10px;
+  padding-bottom: 30px;
+}
+
+.passwordinput{
+  margin-bottom: 10%;
+  
+}
+
+.loginbuttons{
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(99, 208, 99);
+  border-radius: 10px;
+  padding-bottom: 30px;
+}
+.loginbuttons a{
+  font-size: 16px;
+  color: #000000;
+  text-decoration: none;
+}
+
+
+.loginbuttons button{
+  width: 100px;
+  height: 50px;
+  border-radius: 12px;
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.signupbuttons button{
+  width: 100px;
+  height: 50px;
+  border-radius: 12px;
+  font-family: 'Anton', sans-serif;
+  font-size: 16px;
+  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.signupbuttons a{
+  font-size: 16px;
+  color: black;
+  text-decoration: none;
+}
+
+.infolinkbutton {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: blue;
+  border-radius: 10px;
+  padding-bottom: 30px;
+  width: 100px;
+  margin: 0 auto;
+  
+
+}
+
+.infolinkbutton a{
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
+
+.restpagehomebutton {
+  padding-top: 30px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: blue;
+  border-radius: 10px;
+  padding-bottom: 30px;
+  width: 100px;
+  margin: 0 auto;
+
+}
+.restpagehomebutton a{
+  font-size: 16px;
+  color: white;
+  text-decoration: none;
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: 1px solid #555;
+  outline: none;
+  font-size: 20px;
+  border-radius: 10px;
+  margin-bottom: 5%;
+}
+
+input[type=text]:focus {
+  background-color: lightblue;
+}
+
+select {
+  width: 50%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f1f1f1;
+  font-size: 20px;
+  margin-bottom: 5%;
 }

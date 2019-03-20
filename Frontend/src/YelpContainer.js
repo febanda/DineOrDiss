@@ -14,20 +14,6 @@ import {Matches} from "./views/Matches"
 
 
 
-    // if (navigator.geolocation) {
-    //     navigator.geolocation.getCurrentPosition(displayLocationInfo);
-    //   }
-    
-    
-    //   let location = []
-
-
-    // function displayLocationInfo(position) {
-    //     let lng = position.coords.longitude;
-    //     let lat = position.coords.latitude;
-    //     location.push(lng, lat)
-    //     console.log(`longitude: ${lng} | latitude: ${lat}`)
-    // }
        
        
     
@@ -235,6 +221,7 @@ changeView = () => {
                     <span style={{float: 'right'}}>{localStorage.user_email}</span>
                     <button className="matchbutton" onClick={this.changeView}>Matches</button>
                     <button className="logout" onClick={() => this.props.logOut(this.props.history)}>Logout</button>
+                    <button className="homebutton" onClick={this.changeView}>Home</button>
               </div>
         
         <div>
@@ -246,7 +233,7 @@ changeView = () => {
             ? 
       
             <div>
-                  <button className="homebutton" onClick={this.changeView}>Home</button>
+                  {/* <button className="homebutton" onClick={this.changeView}>Home</button> */}
             <Matches matchedrestaurants={this.state.matchedrestaurants} deleteMatch={this.deleteMatch} />
             </div> 
         : 
